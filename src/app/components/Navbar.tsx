@@ -1,8 +1,19 @@
+"use client"
+
 import { FileImage } from 'lucide-react';
+import { useState } from 'react'
 
 type Props = {}
 
 export default function Navbar({}: Props) {
+  const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+
+  const uploadImage = (e: any): void => {
+    const file = e.target.files[0]
+    console.log(file)
+}
+
+
   return (
     <nav className="py-8 px-16 w-full min-h-[10vh] bg-black/40 shadow-md border-b-2 border-black/40 flex items-center justify-between gap-12">
         <h1 className="text-3xl font-bold">Palette Generator</h1>
@@ -11,7 +22,7 @@ export default function Navbar({}: Props) {
                 <FileImage  />
                 Upload Image
             </label>
-            <input type="file" id="file" className="items-center justify-center hidden" />
+            <input onChange={uploadImage} type="file" id="file" className="items-center justify-center hidden" />
         </div>
     </nav>
   )

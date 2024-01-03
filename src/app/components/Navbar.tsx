@@ -1,17 +1,38 @@
 "use client"
 
 import { FileImage } from 'lucide-react';
-import { useState } from 'react'
+import ColorThief from 'colorthief'
+import { useImageContext } from '../context/imageContext';
 
 type Props = {}
 
 export default function Navbar({}: Props) {
-  const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+  const { setImageAndPalette } = useImageContext();
 
   const uploadImage = (e: any): void => {
     const file = e.target.files[0]
-    console.log(file)
-}
+    
+    if (e.target && file) {
+      const reader = new FileReader();
+  
+      reader.onload = async (event: ProgressEvent<FileReader>) => {
+        const img = new Image();
+  
+        img.onload = () => {
+          const colorThief = new ColorThief();
+          const colorPalette = colorThief.getPalette(img, 6);
+
+          setImageAndPalette(file, colorPalette)
+  
+        };
+  
+        img.src = event.target?.result as string;
+      };
+  
+      reader.readAsDataURL(file);
+    }
+  }
+
 
 
   return (

@@ -1,9 +1,16 @@
 import React from 'react'
+import { useImageContext } from '../context/imageContext';
 
 type Props = {}
 
 export default function DisplayImage({}: Props) {
-  return (
-    <div>DisplayImage</div>
-  )
+    const { uploadedImage, colorPalette } = useImageContext();
+
+    return (
+        <div>
+            <div>
+                {uploadedImage ? "Hello" : "No"}
+            </div>
+        </div>
+    )
 }

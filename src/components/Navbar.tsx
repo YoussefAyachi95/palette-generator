@@ -3,6 +3,7 @@
 import { FileImage } from 'lucide-react';
 import ColorThief from 'colorthief'
 import { useImageContext } from '../context/imageContext';
+import Link from 'next/link';
 
 type Props = {}
 
@@ -37,7 +38,9 @@ export default function Navbar({}: Props) {
 
   return (
     <nav className="py-8 px-16 w-full min-h-[10vh] bg-black/40 shadow-md border-b-2 border-black/40 flex items-center justify-between gap-12">
-        <h1 className="text-3xl font-bold">Palette Generator</h1>
+        <Link href="/">
+          <h1 className="text-3xl font-bold">Palette Generator</h1>
+        </Link>
         <div>
             <label htmlFor="file" className="py-2 px-8 rounded-lg border border-gray-800 cursor-pointer flex items-center justify-center gap-4">
                 <FileImage  />

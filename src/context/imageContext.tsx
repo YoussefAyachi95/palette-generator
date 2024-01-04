@@ -3,9 +3,9 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 interface ImageContextProps {
-  uploadedImage: string | null;
-  colorPalette: string[] | null;
-  setImageAndPalette: (image: string, palette: string[]) => void;
+  uploadedImage: File | null;
+  colorPalette: number[][] | null;
+  setImageAndPalette: (image: File | null, palette: number[][] | null) => void;
 }
 
 const ImageContext = createContext<ImageContextProps | undefined>(undefined);
@@ -23,16 +23,22 @@ interface ImageProviderProps {
 }
 
 export const ImageProvider = ({ children }: ImageProviderProps): JSX.Element => {
-  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
-  const [colorPalette, setColorPalette] = useState<string[] | null>(null);
+  const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+  const [colorPalette, setColorPalette] = useState<number[][] | null>(null);
 
-  const setImageAndPalette = (image: string, palette: string[]): void => {
+  const setImageAndPalette = (image: File | null, palette: number[][] | null): void => {
     setUploadedImage(image);
     setColorPalette(palette);
   };
 
+  const contextValue: ImageContextProps = {
+    uploadedImage,
+    colorPalette,
+    setImageAndPalette,
+  };
+
   return (
-    <ImageContext.Provider value={{ uploadedImage, colorPalette, setImageAndPalette }}>
+    <ImageContext.Provider value={contextValue}>
       {children}
     </ImageContext.Provider>
   );
